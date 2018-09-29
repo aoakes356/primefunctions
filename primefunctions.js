@@ -11,5 +11,15 @@ function prime(max) {
     });
   return primes;
 }
+console.log(prime(1000));
+
+function cumulativeSum(numbers) {
+  const num = numbers;
+  for (let i = 1; i < numbers.length; i++) {
+    num[i] += numbers[i - 1];
+  }
+  return num;
+}
 
 
+console.log(cumulativeSum([1, 2, 3, 4]));
