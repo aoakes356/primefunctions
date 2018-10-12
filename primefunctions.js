@@ -42,7 +42,6 @@ function maxPrimeSum(max) {
     }
     start++;
   }
-  return [maxSum, maxCon];
+  return [maxSum, maxCon + 1];
 }
-const foo = 'foo';
 console.log(maxPrimeSum(100));
