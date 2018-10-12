@@ -44,5 +44,5 @@ function maxPrimeSum(max) {
   }
   return [maxSum, maxCon];
 }
-
+const foo = 'foo';
 console.log(maxPrimeSum(100));
