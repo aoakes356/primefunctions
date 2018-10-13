@@ -1,19 +1,25 @@
 function prime(max) {
-  const primes = [2];
-  let i = 3;
-  while(i < max){
-    for(let j = 0; j < primes.length && primes[j]*primes[j] < i){
-      if(i%primes[j] == 0){
-        i++;
-        continue;
+  let current = 2;
+  let currentIndex = 0;
+  const primes = _.range(2, max + 1, 1);
+  const maxDiv = Math.ceil(Math.sqrt(max));
+  let maxFac;
+  while (current <= maxDiv && currentIndex < primes.length) {
+    maxFac = (primes.length + 2) / current;
+    for (let i = 2; i < maxFac; i++) {
+      primes[(i * current) - 2] = undefined;
+    }
+    while (currentIndex < primes.length) {
+      currentIndex++;
+      if (primes[currentIndex] !== undefined) {
+        current = primes[currentIndex];
+        break;
       }
     }
-    primes.push(i);
-    i++;
   }
+
   return primes;
 }
-console.log(prime(1000));
 
 function cumulativeSum(numbers) {
   const num = numbers;
@@ -26,24 +32,28 @@ console.log(cumulativeSum([1, 2, 3, 4]));
 
 function maxPrimeSum(max) {
   const primes = prime(max);
-  const len = primes.length;
-  let maxSum = 0;
-  let maxCon = 0;
-  let temp;
-  let maxTemp;
-  let lenTemp;
-  let start = 0;
-  while (start < len) {
-    temp = cumulativeSum(primes.slice(start, len));
-    console.log(temp);
-    maxTemp = _.max(_.filter(temp, function (sum) { return _.indexOf(primes, sum) !== -1; }));
-    lenTemp = _.indexOf(temp, maxTemp);
-    if (lenTemp > maxCon) {
-      maxSum = maxTemp;
-      maxCon = lenTemp;
+  const primesFiltered = _.filter(primes, function (p) { return p !== undefined; });
+  let maxprime = 0;
+  let maxindex = 0;
+  const stop = primesFiltered.length;
+  for (let start = 0; start < stop; start++) {
+    if (Math.abs(start - stop) < maxindex) {
+      break;
     }
-    start++;
+    const arr = cumulativeSum(primesFiltered.slice(start, stop));
+    for (let j = arr.length - 1; j >= 0; j--) {
+      if (j + 1 <= maxindex) {
+        break;
+      }
+      if (primes[arr[j] - 2] !== undefined) {
+        if (j + 1 > maxindex) {
+          maxprime = arr[j];
+          maxindex = j + 1;
+        }
+        break;
+      }
+    }
   }
-  return [maxSum, maxCon + 1];
+  return [maxprime, maxindex];
 }
 console.log(maxPrimeSum(100));

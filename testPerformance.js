@@ -1,4 +1,4 @@
-/* eslint-env mocha, chai, primefunctions2 */
+/* eslint-env mocha, chai */
 /* global chai, maxPrimeSum */
 
 describe('maxPrimeSum',
@@ -6,13 +6,13 @@ describe('maxPrimeSum',
     this.slow(0);
     it('maxPrimeSum(10000) should take less than 20ms',
       function () {
-        this.timeout(1000000);
+        this.timeout(20);
         const mpsbig = maxPrimeSum(10000);
         chai.assert.deepEqual(mpsbig, [9521, 65]);
       });
-    it('maxPrimeSum(10000) should take less than 200ms',
+    it('maxPrimeSum(100000) should take less than 500ms',
       function () {
-        this.timeout(1000000);
+        this.timeout(500);
         const mpsbigger = maxPrimeSum(100000);
         chai.assert.deepEqual(mpsbigger, [92951, 183]);
       });
