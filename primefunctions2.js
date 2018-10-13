@@ -1,14 +1,16 @@
 function prime(max) {
   const primes = [2];
-  _.filter(_.range(2, max, 1), // Generate a list of numbers from 2 to max.
-    function (isprime) {
-      if (_.every(primes,
-        function (div) {
-          return (isprime % div !== 0 && isprime !== div); // Checks if divisible by all currently known primes.
-        })) {
-        primes.push(isprime); return true;// Adds to array of primes if it passes.
-      } return false;
-    });
+  let i = 3;
+  while(i < max){
+    for(let j = 0; j < primes.length && primes[j]*primes[j] < i){
+      if(i%primes[j] == 0){
+        i++;
+        continue;
+      }
+    }
+    primes.push(i);
+    i++;
+  }
   return primes;
 }
 console.log(prime(1000));

@@ -1,4 +1,4 @@
-/* eslint-env mocha, chai */
+/* eslint-env mocha, chai, primefunctions2 */
 /* global chai, maxPrimeSum */
 
 describe('maxPrimeSum',
